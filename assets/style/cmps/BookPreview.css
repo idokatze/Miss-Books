@@ -14,3 +14,8 @@
 .book-preview img {
     max-width: 100px;
 }
+
+.on-sale {
+    color: red;
+    background-color: yellow;
+}

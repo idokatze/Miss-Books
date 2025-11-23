@@ -19,3 +19,8 @@
 .book-list li.loading {
     opacity: 0.7;
 }
+
+.on-sale {
+    color: red;
+    background-color: yellow;
+}

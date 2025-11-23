@@ -1,9 +1,13 @@
-import { loadFromStorage, makeId, saveToStorage, makeLorem } from './util.service.js'
+import {
+    loadFromStorage,
+    makeId,
+    saveToStorage,
+    makeLorem,
+} from './util.service.js'
+
 import { storageService } from './async-storage.service.js'
-
-const BOOK_KEY = 'bookDB'
-_createBooks()
-
+import {books} from '../books.js'
+console.log('books:', books)
 export const bookService = {
     query,
     get,
@@ -12,6 +16,11 @@ export const bookService = {
     getEmptyBook,
     getDefaultFilter,
 }
+
+const BOOK_KEY = 'bookDB'
+
+_createBooks()
+
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY).then((books) => {
@@ -64,14 +73,22 @@ function getDefaultFilter() {
 
 function _createBooks() {
     let books = loadFromStorage(BOOK_KEY)
+    console.log('books:', books)
     if (!books || !books.length) {
-        books = [
-            _createBook('Mary Poppins', 300),
-            _createBook('The Catcher in the Rye', 120),
-            _createBook('100 Years of Solitude', 50),
-        ]
+        books = _createBooksHardCoded()
         saveToStorage(BOOK_KEY, books)
     }
+}
+
+function _createBooksHardCoded() {
+    let idx = 1
+    let newBooks = books.map((book) => {
+        book.thumbnail = `../assets/img/booksImages/${idx}.jpg`
+        idx++
+        return book
+    })
+    console.log('newBooks', newBooks)
+    return newBooks
 }
 
 function _createBook(title = '', price = '') {
@@ -79,3 +96,15 @@ function _createBook(title = '', price = '') {
     book.id = makeId()
     return book
 }
+
+export function colorByPrice(book) {
+    const price = book.listPrice.amount
+
+    if (price > 150) return 'red'
+    else if (price < 20) return 'green'
+    else return 'black'
+}
+
+// export function isOnSale(book) {
+//     if 
+// }
