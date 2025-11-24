@@ -2,7 +2,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     margin: 0;
     color: var(--gray3);
@@ -15,8 +14,8 @@ h3,
 h4,
 h5,
 h6 {
-    margin: .5em 0 .5em;
-    font-family: 'Edu VIC WA NT Beginner', cursive;
+    margin: 0.5em 0 0.5em;
+    font-family: 'serif', cursive;
 }
 
 p {
@@ -26,19 +25,18 @@ p {
 a {
     text-decoration: none;
     color: unset;
+    font-family: Helvetica;
 }
-
-
 
 /* Dont stretch my Media */
 img,
 embed,
 video,
 object {
-    max-width: 100%
+    max-width: 100%;
 }
 
 /* Simple and useful CSS Debugging Technique */
 .debug * {
-    outline: 1px solid gold
+    outline: 1px solid gold;
 }

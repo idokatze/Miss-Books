@@ -1,14 +1,19 @@
 import { bookService } from '../services/book.service.js'
 import { colorByPrice } from '../services/book.service.js'
+import { ReadMore } from '../cmps/ReadMore.jsx'
 
 const { useState, useEffect } = React
+const { useParams, useNavigate } = ReactRouterDOM
 
-export function BookDetails({ bookId, onBack }) {
+export function BookDetails() { //{ bookId, onBack }
     const [book, setBook] = useState(null)
+    const { bookId } = useParams()
+    const navigate = useNavigate()
+    console.log(bookId)
 
     useEffect(() => {
         loadBook()
-    }, [])
+    }, [bookId])
 
     function loadBook() {
         bookService
@@ -17,6 +22,11 @@ export function BookDetails({ bookId, onBack }) {
             .catch((err) => {
                 console.log('err:', err)
             })
+    }
+
+    function onBack() {
+        navigate('/book')
+        // navigate(-1)
     }
 
     function getVintage() {
@@ -61,7 +71,9 @@ export function BookDetails({ bookId, onBack }) {
             </h2>
             <h3>{readLevel}</h3>
             <h4>{vintageLevel}</h4>
-            <p>{book.description}</p>
+            <div className="read-more">
+                <ReadMore txt={book.description} length={100} />{' '}
+            </div>
             <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>
         </section>

@@ -1,13 +1,16 @@
 :root {
-    --clr1: rgb(96, 107, 91);
-    --clr2: rgb(120, 99, 110);
+    /* Primary colors */
+    --clr1: rgb(33, 64, 95); /* deep navy */
+    --clr2: rgb(220, 120, 80); /* warm coral accent */
 
-    --clr1bg: rgb(153, 166, 149);
-    --clr1bg-light: rgb(205, 221, 200);
-    --clr2bg: rgb(233, 206, 221);
-    --clr2bg-light: rgb(253, 236, 246);
+    /* Backgrounds */
+    --clr1bg: rgb(235, 242, 248); /* soft light blue */
+    --clr1bg-light: rgb(250, 252, 255); /* almost white */
+    --clr2bg: rgb(255, 228, 220); /* pale coral background */
+    --clr2bg-light: rgb(255, 245, 240); /* very light coral */
 
-    --gray1: rgb(240, 240, 240);
-    --gray2: rgb(155, 155, 155);
-    --gray3: rgb(44, 44, 44);
+    /* Grays */
+    --gray1: rgb(245, 245, 245); /* light gray */
+    --gray2: rgb(160, 160, 160); /* medium gray */
+    --gray3: rgb(40, 40, 40); /* dark gray */
 }

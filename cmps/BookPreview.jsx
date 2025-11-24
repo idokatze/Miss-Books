@@ -1,3 +1,4 @@
+
 import { colorByPrice } from '../services/book.service.js'
 
 export function BookPreview({ book }) {

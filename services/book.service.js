@@ -6,7 +6,7 @@ import {
 } from './util.service.js'
 
 import { storageService } from './async-storage.service.js'
-import {books} from '../books.js'
+import { books } from '../books.js'
 console.log('books:', books)
 export const bookService = {
     query,
@@ -21,18 +21,25 @@ const BOOK_KEY = 'bookDB'
 
 _createBooks()
 
-
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY).then((books) => {
-        if (filterBy.title) {
-            const regExp = new RegExp(filterBy.title, 'i')
-            books = books.filter((book) => regExp.test(book.title))
+        if (filterBy.text) {
+            const regExp = new RegExp(filterBy.text, 'i')
+            books = books.filter((book) => {
+                return (
+                    regExp.test(book.title) ||
+                    regExp.test(book.authors) ||
+                    book.categories.some((cat) => regExp.test(cat))
+                )
+            })
         }
+
         if (filterBy.price) {
             books = books.filter(
                 (book) => book.listPrice.amount >= filterBy.price
             )
         }
+
         return books
     })
 }
@@ -106,5 +113,5 @@ export function colorByPrice(book) {
 }
 
 // export function isOnSale(book) {
-//     if 
+//     if
 // }

@@ -1,9 +1,8 @@
-import { debounce } from "../services/util.service.js"
+import { debounce } from '../services/util.service.js'
 
 const { useState, useEffect, useRef } = React
 
 export function BookFilter({ defaultFilter, onSetFilter }) {
-
     const [filterByToEdit, setFilterToEdit] = useState({ ...defaultFilter })
 
     const onSetFilterDebounce = useRef(debounce(onSetFilter, 400)).current
@@ -20,28 +19,39 @@ export function BookFilter({ defaultFilter, onSetFilter }) {
             case 'number':
             case 'range':
                 value = +value
-                break;
+                break
 
             case 'checkbox':
                 value = target.checked
                 break
         }
 
-        setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
-
+        setFilterToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
-    const { title, price } = filterByToEdit
+    const { text, price } = filterByToEdit
     return (
         <section className="book-filter container">
             <h2>Filter Our Books</h2>
 
             <form>
-                <label htmlFor="title">Title</label>
-                <input onChange={handleChange} value={title} name="title" id="title" type="text" />
+                <label htmlFor="text">Title, Author or Cat</label>
+                <input
+                    onChange={handleChange}
+                    value={text || ''}
+                    name="text"
+                    id="text"
+                    type="text"
+                />
 
                 <label htmlFor="price">Price</label>
-                <input onChange={handleChange} value={price || ''} name="price" id="price" type="number" />
+                <input
+                    onChange={handleChange}
+                    value={price || ''}
+                    name="price"
+                    id="price"
+                    type="number"
+                />
 
                 {/* <button>Submit</button> */}
             </form>
