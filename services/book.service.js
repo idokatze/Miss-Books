@@ -45,7 +45,9 @@ function query(filterBy = {}) {
 }
 
 function get(bookId) {
-    return storageService.get(BOOK_KEY, bookId)
+    return storageService
+        .get(BOOK_KEY, bookId)
+        .then((book) => _setNextPrevBookId(book))
 }
 
 function remove(bookId) {
@@ -61,16 +63,17 @@ function save(book) {
     }
 }
 
-function getEmptyBook(title, price) {
+function getEmptyBook() {
     return {
-        title: title,
+        title: '',
         description: makeLorem(20),
         thumbnail: 'https://www.coding-academy.org/books-photos/ 20.jpg',
         listPrice: {
-            amount: price,
+            amount: '',
             currencyCode: 'EUR',
             isOnSale: false,
         },
+        reviews: [],
     }
 }
 
@@ -80,7 +83,6 @@ function getDefaultFilter() {
 
 function _createBooks() {
     let books = loadFromStorage(BOOK_KEY)
-    console.log('books:', books)
     if (!books || !books.length) {
         books = _createBooksHardCoded()
         saveToStorage(BOOK_KEY, books)
@@ -91,6 +93,7 @@ function _createBooksHardCoded() {
     let idx = 1
     let newBooks = books.map((book) => {
         book.thumbnail = `../assets/img/booksImages/${idx}.jpg`
+        book.reviews = []
         idx++
         return book
     })
@@ -112,6 +115,15 @@ export function colorByPrice(book) {
     else return 'black'
 }
 
-// export function isOnSale(book) {
-//     if
-// }
+function _setNextPrevBookId(book) {
+    return query().then((books) => {
+        const bookIdx = books.findIndex((currBook) => currBook.id === book.id)
+        const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
+        const prevBook = books[bookIdx - 1]
+            ? books[bookIdx - 1]
+            : books[books.length - 1]
+        book.nextBookId = nextBook.id
+        book.prevBookId = prevBook.id
+        return book
+    })
+}

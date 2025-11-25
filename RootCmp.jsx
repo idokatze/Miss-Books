@@ -9,8 +9,8 @@ import { Home } from './pages/Home.jsx'
 import { BookIndex } from './pages/BookIndex.jsx'
 import { NotFound } from './cmps/NotFound.jsx'
 import { BookDetails } from './pages/BookDetails.jsx'
-import { BookEdit } from "./pages/BookEdit.jsx"
-
+import { BookEdit } from './pages/BookEdit.jsx'
+import { UserMsg } from './cmps/UserMsg.jsx'
 
 export function RootCmp() {
     const [page, setPage] = useState('book')
@@ -27,29 +27,16 @@ export function RootCmp() {
                         <Route path="/about" element={<About />} />
                         <Route path="/book" element={<BookIndex />} />
                         <Route path="/book/:bookId" element={<BookDetails />} />
-                        <Route path="/book/edit" element={<CarEdit />} />
-                        <Route path="/book/edit/:bookId" element={<BookEdit />} />
+                        <Route path="/book/edit" element={<BookEdit />} />
+                        <Route
+                            path="/book/edit/:bookId"
+                            element={<BookEdit />}
+                        />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
 
-                {/* <header className="app-header container">
-                            <section>
-                                <h1>React Book App</h1>
-                                <nav className="app-nav">
-                                    <a onClick={() => setPage('home')}>Home</a>
-                                    <a onClick={() => setPage('about')}>
-                                        About
-                                    </a>
-                                    <a onClick={() => setPage('book')}>Books</a>
-                                </nav>
-                            </section>
-                        </header> */}
-                {/* <main>
-                    {page === 'home' && <Home />}
-                    {page === 'about' && <About />}
-                    {page === 'book' && <BookIndex />}
-                </main> */}
+                <UserMsg />
             </section>
         </Router>
     )
